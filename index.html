@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IQ・EQテスト</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="startScreen" class="screen active">
+            <h1>IQ・EQ診断テスト</h1>
+            <p class="description">このテストでは、あなたのIQ（知能指数）とEQ（感情指数）を測定します。</p>
+            <div class="test-selection">
+                <button class="btn btn-primary" onclick="startTest('iq')">IQテストを開始</button>
+                <button class="btn btn-secondary" onclick="startTest('eq')">EQテストを開始</button>
+            </div>
+        </div>
+
+        <div id="testScreen" class="screen">
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+            <div class="question-counter">
+                問題 <span id="currentQuestion">1</span> / <span id="totalQuestions">10</span>
+            </div>
+            <div class="test-content">
+                <h2 id="questionTitle"></h2>
+                <div id="questionImage" class="question-image"></div>
+                <div id="questionText" class="question-text"></div>
+                <div id="answerOptions" class="answer-options"></div>
+            </div>
+            <div class="navigation">
+                <button class="btn btn-skip" onclick="skipQuestion()">スキップ</button>
+            </div>
+        </div>
+
+        <div id="resultScreen" class="screen">
+            <h1>テスト結果</h1>
+            <div class="result-card">
+                <div class="score-display">
+                    <div class="score-label" id="scoreLabel">IQスコア</div>
+                    <div class="score-value" id="scoreValue">100</div>
+                </div>
+                <div class="score-description" id="scoreDescription"></div>
+                <div class="score-chart">
+                    <canvas id="scoreChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+            <div class="result-actions">
+                <button class="btn btn-primary" onclick="restartTest()">もう一度テストする</button>
+                <button class="btn btn-secondary" onclick="goHome()">ホームに戻る</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
