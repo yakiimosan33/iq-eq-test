@@ -9,11 +9,41 @@
 <body>
     <div class="container">
         <div id="startScreen" class="screen active">
-            <h1>IQ・EQ診断テスト</h1>
-            <p class="description">このテストでは、あなたのIQ（知能指数）とEQ（感情指数）を測定します。</p>
+            <h1>適性検査・診断テストセンター</h1>
+            <p class="description">IQ・EQテストから就職活動で使われる適性検査まで、様々なテストであなたの能力を診断します。</p>
             <div class="test-selection">
-                <button class="btn btn-primary" onclick="startTest('iq')">IQテストを開始</button>
-                <button class="btn btn-secondary" onclick="startTest('eq')">EQテストを開始</button>
+                <div class="test-category">
+                    <h3>能力診断テスト</h3>
+                    <div class="test-buttons">
+                        <button class="btn btn-primary" onclick="startTest('iq')">IQテスト</button>
+                        <button class="btn btn-secondary" onclick="startTest('eq')">EQテスト</button>
+                    </div>
+                </div>
+                <div class="test-category">
+                    <h3>就職適性検査</h3>
+                    <div class="test-buttons">
+                        <button class="btn btn-spi" onclick="startTest('spi')">
+                            <div class="test-title">SPI3</div>
+                            <div class="test-desc">言語・非言語・性格検査</div>
+                        </button>
+                        <button class="btn btn-tamatebako" onclick="startTest('tamatebako')">
+                            <div class="test-title">玉手箱</div>
+                            <div class="test-desc">言語・計数・英語・性格</div>
+                        </button>
+                        <button class="btn btn-tgweb" onclick="startTest('tgweb')">
+                            <div class="test-title">TG-WEB</div>
+                            <div class="test-desc">図形・パズル・発想力</div>
+                        </button>
+                        <button class="btn btn-gab" onclick="startTest('gab')">
+                            <div class="test-title">GAB</div>
+                            <div class="test-desc">総合職向け適性検査</div>
+                        </button>
+                        <button class="btn btn-cab" onclick="startTest('cab')">
+                            <div class="test-title">CAB</div>
+                            <div class="test-desc">IT職向け適性検査</div>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 

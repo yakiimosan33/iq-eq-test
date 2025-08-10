@@ -67,7 +67,24 @@ h2 {
 
 .test-selection {
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.test-category {
+    text-align: center;
+}
+
+.test-category h3 {
+    color: #333;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.test-buttons {
+    display: flex;
+    gap: 15px;
     justify-content: center;
     flex-wrap: wrap;
 }
@@ -111,6 +128,68 @@ h2 {
 
 .btn-skip:hover {
     background: #d0d0d0;
+}
+
+.btn-spi {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    color: white;
+}
+
+.btn-spi:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 154, 158, 0.4);
+}
+
+.btn-tamatebako {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    color: #333;
+}
+
+.btn-tamatebako:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(168, 237, 234, 0.4);
+}
+
+.btn-tgweb {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    color: #333;
+}
+
+.btn-tgweb:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(252, 182, 159, 0.4);
+}
+
+.btn-gab {
+    background: linear-gradient(135deg, #a8caba 0%, #5d4e75 100%);
+    color: white;
+}
+
+.btn-gab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(168, 202, 186, 0.4);
+}
+
+.btn-cab {
+    background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+    color: white;
+}
+
+.btn-cab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+}
+
+.test-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.test-desc {
+    font-size: 0.9em;
+    opacity: 0.8;
+    line-height: 1.2;
 }
 
 .progress-bar {
@@ -418,6 +497,12 @@ h2 {
     
     .btn {
         width: 100%;
+        min-width: 200px;
+    }
+    
+    .test-buttons {
+        flex-direction: column;
+        align-items: center;
     }
     
     .answer-grid {
