@@ -281,6 +281,127 @@ h2 {
     flex-wrap: wrap;
 }
 
+/* Personality Analysis Styles */
+.personality-analysis {
+    display: grid;
+    gap: 20px;
+}
+
+.trait-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+}
+
+.trait-icon {
+    font-size: 2.5em;
+    line-height: 1;
+}
+
+.trait-content {
+    flex: 1;
+}
+
+.trait-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.trait-description {
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Skills Breakdown Styles */
+.skills-breakdown {
+    display: grid;
+    gap: 20px;
+}
+
+.skill-item {
+    display: grid;
+    grid-template-columns: 150px 1fr 60px;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+}
+
+.skill-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.skill-bar {
+    height: 12px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    transition: width 2s ease;
+    width: 0%;
+}
+
+.skill-score {
+    text-align: right;
+    font-weight: 600;
+    color: #667eea;
+}
+
+/* Comparison Chart Styles */
+.comparison-chart {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Recommendations Styles */
+.recommendations {
+    display: grid;
+    gap: 20px;
+}
+
+.recommendation-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    background: #f0f8ff;
+    border-radius: 10px;
+    border-left: 4px solid #f093fb;
+}
+
+.recommendation-icon {
+    font-size: 2.5em;
+    line-height: 1;
+}
+
+.recommendation-content {
+    flex: 1;
+}
+
+.recommendation-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.recommendation-description {
+    color: #666;
+    line-height: 1.5;
+}
+
 @media (max-width: 600px) {
     .container {
         border-radius: 0;
@@ -301,5 +422,27 @@ h2 {
     
     .answer-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .skill-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        text-align: left;
+    }
+
+    .skill-score {
+        text-align: left;
+    }
+
+    .trait-item,
+    .recommendation-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .trait-icon,
+    .recommendation-icon {
+        align-self: center;
     }
 }

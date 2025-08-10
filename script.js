@@ -348,6 +348,10 @@ function showResults() {
     document.getElementById('scoreDescription').textContent = getScoreDescription(score, currentTest);
     
     drawScoreChart(score, currentTest);
+    showPersonalityAnalysis(score, currentTest);
+    showSkillsBreakdown();
+    drawComparisonChart(score, currentTest);
+    showRecommendations(score, currentTest);
 }
 
 function drawScoreChart(score, testType) {
@@ -395,6 +399,230 @@ function drawScoreChart(score, testType) {
 
 function restartTest() {
     location.reload();
+}
+
+function showPersonalityAnalysis(score, testType) {
+    const analysisDiv = document.getElementById('personalityAnalysis');
+    analysisDiv.innerHTML = '';
+    
+    let traits = [];
+    
+    if (testType === 'iq') {
+        if (score >= 120) {
+            traits = [
+                { icon: '🧠', title: '抽象的思考力', desc: '複雑な概念や理論を理解し、応用する能力に優れています。' },
+                { icon: '🔍', title: '問題解決力', desc: '論理的なアプローチで効率的に問題を解決します。' },
+                { icon: '💡', title: '創造的思考', desc: '独創的なアイデアや解決策を見つける能力があります。' }
+            ];
+        } else if (score >= 100) {
+            traits = [
+                { icon: '🧮', title: '分析的思考', desc: '情報を整理し、論理的に分析することが得意です。' },
+                { icon: '📊', title: 'パターン認識', desc: '規則性やパターンを見つける能力があります。' },
+                { icon: '🎯', title: '集中力', desc: '複雑なタスクに集中して取り組むことができます。' }
+            ];
+        } else {
+            traits = [
+                { icon: '📚', title: '学習意欲', desc: '新しいことを学ぶ意欲と向上心があります。' },
+                { icon: '🔄', title: '継続力', desc: '諦めずに問題に取り組む粘り強さがあります。' }
+            ];
+        }
+    } else {
+        if (score >= 100) {
+            traits = [
+                { icon: '❤️', title: '共感力', desc: '他人の感情を理解し、共感する能力に優れています。' },
+                { icon: '🤝', title: 'コミュニケーション力', desc: '効果的に他者と意思疎通を図ることができます。' },
+                { icon: '🧘', title: '感情管理力', desc: '自分の感情をコントロールし、適切に表現できます。' }
+            ];
+        } else if (score >= 80) {
+            traits = [
+                { icon: '👂', title: '傾聴力', desc: '相手の話をしっかりと聞く能力があります。' },
+                { icon: '🎭', title: '感情認識力', desc: '自分や他人の感情の変化に気づくことができます。' }
+            ];
+        } else {
+            traits = [
+                { icon: '🌱', title: '成長意欲', desc: '人間関係やコミュニケーションスキルを向上させたいという意識があります。' },
+                { icon: '🤔', title: '自己反省力', desc: '自分の行動や感情を振り返る習慣があります。' }
+            ];
+        }
+    }
+    
+    traits.forEach(trait => {
+        const traitDiv = document.createElement('div');
+        traitDiv.className = 'trait-item';
+        traitDiv.innerHTML = `
+            <div class="trait-icon">${trait.icon}</div>
+            <div class="trait-content">
+                <div class="trait-title">${trait.title}</div>
+                <div class="trait-description">${trait.desc}</div>
+            </div>
+        `;
+        analysisDiv.appendChild(traitDiv);
+    });
+}
+
+function showSkillsBreakdown() {
+    const skillsDiv = document.getElementById('skillsBreakdown');
+    skillsDiv.innerHTML = '';
+    
+    let skills = [];
+    
+    if (currentTest === 'iq') {
+        const logicScore = calculateCategoryScore('logic');
+        const patternScore = calculateCategoryScore('pattern');
+        const mathScore = calculateCategoryScore('math');
+        const spatialScore = calculateCategoryScore('spatial');
+        
+        skills = [
+            { name: '論理的推理', score: logicScore },
+            { name: 'パターン認識', score: patternScore },
+            { name: '数的処理', score: mathScore },
+            { name: '空間認識', score: spatialScore }
+        ];
+    } else {
+        const emotionScore = calculateCategoryScore('emotion');
+        const empathyScore = calculateCategoryScore('empathy');
+        const socialScore = calculateCategoryScore('social');
+        const selfAwarenessScore = calculateCategoryScore('self-awareness');
+        
+        skills = [
+            { name: '感情管理', score: emotionScore },
+            { name: '共感力', score: empathyScore },
+            { name: '社会的スキル', score: socialScore },
+            { name: '自己認識', score: selfAwarenessScore }
+        ];
+    }
+    
+    skills.forEach(skill => {
+        const skillDiv = document.createElement('div');
+        skillDiv.className = 'skill-item';
+        skillDiv.innerHTML = `
+            <div class="skill-name">${skill.name}</div>
+            <div class="skill-bar">
+                <div class="skill-fill" data-skill="${skill.name}"></div>
+            </div>
+            <div class="skill-score">${skill.score}%</div>
+        `;
+        skillsDiv.appendChild(skillDiv);
+        
+        setTimeout(() => {
+            const fillElement = skillDiv.querySelector('.skill-fill');
+            fillElement.style.width = skill.score + '%';
+        }, 500);
+    });
+}
+
+function calculateCategoryScore(category) {
+    const categoryQuestions = questions.filter(q => q.type === category);
+    if (categoryQuestions.length === 0) return 0;
+    
+    const categoryAnswers = answers.filter(a => 
+        categoryQuestions.some(q => questions.indexOf(q) === a.questionIndex)
+    );
+    
+    const totalPoints = categoryAnswers.reduce((sum, answer) => sum + answer.points, 0);
+    const maxPoints = categoryQuestions.reduce((sum, question) => sum + question.points, 0);
+    
+    return Math.round((totalPoints / maxPoints) * 100);
+}
+
+function drawComparisonChart(score, testType) {
+    const canvas = document.getElementById('comparisonChart');
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    
+    ctx.clearRect(0, 0, width, height);
+    
+    const averageScore = testType === 'iq' ? 100 : 90;
+    const data = [
+        { label: 'あなた', score: score, color: '#667eea' },
+        { label: '平均', score: averageScore, color: '#e0e0e0' },
+        { label: '上位10%', score: testType === 'iq' ? 120 : 110, color: '#f093fb' }
+    ];
+    
+    const maxScore = Math.max(...data.map(d => d.score)) * 1.1;
+    const barWidth = 60;
+    const barSpacing = (width - data.length * barWidth) / (data.length + 1);
+    
+    data.forEach((item, index) => {
+        const x = barSpacing + index * (barWidth + barSpacing);
+        const barHeight = (item.score / maxScore) * (height - 80);
+        const y = height - barHeight - 40;
+        
+        ctx.fillStyle = item.color;
+        ctx.fillRect(x, y, barWidth, barHeight);
+        
+        ctx.fillStyle = '#333';
+        ctx.font = 'bold 16px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(item.score, x + barWidth/2, y - 10);
+        
+        ctx.font = '14px Arial';
+        ctx.fillText(item.label, x + barWidth/2, height - 10);
+    });
+    
+    ctx.fillStyle = '#666';
+    ctx.font = '12px Arial';
+    ctx.textAlign = 'left';
+    ctx.fillText('スコア', 10, 20);
+}
+
+function showRecommendations(score, testType) {
+    const recommendationsDiv = document.getElementById('recommendations');
+    recommendationsDiv.innerHTML = '';
+    
+    let recommendations = [];
+    
+    if (testType === 'iq') {
+        if (score < 100) {
+            recommendations = [
+                { icon: '📚', title: '論理パズルに挑戦', desc: '数独やクロスワードパズルで論理的思考力を鍛えましょう。' },
+                { icon: '🧮', title: '計算練習', desc: '暗算や数学問題を定期的に解いて数的処理能力を向上させましょう。' },
+                { icon: '📖', title: '読書習慣', desc: '様々なジャンルの本を読んで語彙力と理解力を高めましょう。' }
+            ];
+        } else if (score < 120) {
+            recommendations = [
+                { icon: '🎲', title: '戦略ゲーム', desc: 'チェスや将棋などで戦略的思考力を磨きましょう。' },
+                { icon: '🔬', title: '科学的思考', desc: '仮説を立てて検証する習慣を身につけましょう。' }
+            ];
+        } else {
+            recommendations = [
+                { icon: '🎯', title: '創造的問題解決', desc: '既存の枠にとらわれない新しいアプローチを試してみましょう。' },
+                { icon: '👥', title: '知識の共有', desc: '他の人に教えることで自分の理解をさらに深めましょう。' }
+            ];
+        }
+    } else {
+        if (score < 80) {
+            recommendations = [
+                { icon: '🎭', title: '感情日記', desc: '日々の感情の変化を記録して自己理解を深めましょう。' },
+                { icon: '👂', title: '積極的傾聴', desc: '相手の話をしっかりと聞く練習をしましょう。' },
+                { icon: '🧘', title: 'マインドフルネス', desc: '瞑想や深呼吸で感情をコントロールする技術を学びましょう。' }
+            ];
+        } else if (score < 100) {
+            recommendations = [
+                { icon: '🤝', title: 'コミュニケーション練習', desc: '様々な人との対話の機会を増やしましょう。' },
+                { icon: '💭', title: '共感力向上', desc: '他人の立場に立って考える習慣を身につけましょう。' }
+            ];
+        } else {
+            recommendations = [
+                { icon: '👑', title: 'リーダーシップ発揮', desc: 'チームをまとめる役割に挑戦してスキルを活用しましょう。' },
+                { icon: '🌟', title: 'メンタリング', desc: '他の人の成長をサポートする活動に参加しましょう。' }
+            ];
+        }
+    }
+    
+    recommendations.forEach(rec => {
+        const recDiv = document.createElement('div');
+        recDiv.className = 'recommendation-item';
+        recDiv.innerHTML = `
+            <div class="recommendation-icon">${rec.icon}</div>
+            <div class="recommendation-content">
+                <div class="recommendation-title">${rec.title}</div>
+                <div class="recommendation-description">${rec.desc}</div>
+            </div>
+        `;
+        recommendationsDiv.appendChild(recDiv);
+    });
 }
 
 function goHome() {

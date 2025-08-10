@@ -37,6 +37,8 @@
 
         <div id="resultScreen" class="screen">
             <h1>テスト結果</h1>
+            
+            <!-- Overall Score -->
             <div class="result-card">
                 <div class="score-display">
                     <div class="score-label" id="scoreLabel">IQスコア</div>
@@ -47,6 +49,57 @@
                     <canvas id="scoreChart" width="400" height="200"></canvas>
                 </div>
             </div>
+
+            <!-- Personality Analysis -->
+            <div class="result-card">
+                <h2>あなたの特徴</h2>
+                <div id="personalityAnalysis" class="personality-analysis">
+                    <div class="trait-item">
+                        <div class="trait-icon">🧠</div>
+                        <div class="trait-content">
+                            <div class="trait-title" id="trait1Title">論理的思考力</div>
+                            <div class="trait-description" id="trait1Desc">複雑な問題を体系的に分析する能力に優れています。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Breakdown -->
+            <div class="result-card">
+                <h2>スキル分析</h2>
+                <div id="skillsBreakdown" class="skills-breakdown">
+                    <div class="skill-item">
+                        <div class="skill-name">論理的推理</div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" data-skill="logic"></div>
+                        </div>
+                        <div class="skill-score">85%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Population Comparison -->
+            <div class="result-card">
+                <h2>平均との比較</h2>
+                <div class="comparison-chart">
+                    <canvas id="comparisonChart" width="500" height="300"></canvas>
+                </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="result-card">
+                <h2>改善のための提案</h2>
+                <div id="recommendations" class="recommendations">
+                    <div class="recommendation-item">
+                        <div class="recommendation-icon">📚</div>
+                        <div class="recommendation-content">
+                            <div class="recommendation-title">論理パズルに挑戦</div>
+                            <div class="recommendation-description">数独やクロスワードパズルで論理的思考力を鍛えましょう。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="result-actions">
                 <button class="btn btn-primary" onclick="restartTest()">もう一度テストする</button>
                 <button class="btn btn-secondary" onclick="goHome()">ホームに戻る</button>
